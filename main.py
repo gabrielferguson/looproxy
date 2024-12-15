@@ -1,14 +1,13 @@
 import os
 import json
 import base64
-import httpx
+import requests
 import uvicorn
 import keep_alive
 
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request, Response, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from httpx import AsyncClient, Timeout
 from pydantic import BaseSettings
 from urllib.parse import urlparse
 
@@ -124,19 +123,17 @@ async def proxy_request(request: Request) -> Response:
 
     try:
         content = await request.body()
-        async with await get_http_client() as client:
-            response = await client.request(
+        with requests.request(
                 method=request.method,
                 url=target_url,
                 headers=proxy_headers,
                 content=content,
+            )) as response:
+            return Response(
+                content=response.content,
+                status_code=response.status_code,
+                headers=dict(response.headers)
             )
-
-        return Response(
-            content=response.content,
-            status_code=response.status_code,
-            headers=dict(response.headers)
-        )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
