@@ -10,6 +10,5 @@ backend:
         packageManager: pip
     path: .
 name: looproxy
-# The region where the project is deployed. Available regions: us-east-1, eu-central-1
 region: us-east-1
 yamlVersion: 2
