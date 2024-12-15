@@ -128,7 +128,7 @@ async def proxy_request(request: Request) -> Response:
                 url=target_url,
                 headers=proxy_headers,
                 content=content,
-            )) as response:
+            ) as response:
             return Response(
                 content=response.content,
                 status_code=response.status_code,
