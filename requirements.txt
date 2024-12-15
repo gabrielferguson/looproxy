@@ -1,6 +1,4 @@
 fastapi>=0.68.0,<1.0.0
-httpx>=0.24.0
-httpx[http2]
 pydantic>=1.8.0,<2.0.0
 python-dotenv>=0.19.0
 uvicorn>=0.15.0
@@ -8,6 +6,7 @@ uvicorn[standard]
 python-multipart
 brotli
 zstandard
+requests
 
 uvloop>=0.17.0; platform_system != "Windows"
 httptools>=0.5.0; platform_system != "Windows"
